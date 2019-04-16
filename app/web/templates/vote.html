@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>打分</title>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('web.static',filename="assets/css/bootstrap.min.css") }}">
+{% endblock %}
+
+<!-- Main -->
+{% block body %}
+    <section id="main" class="container">
+        <header>
+            <h2>打分</h2>
+            <div></div>
+        </header>
+        <div class="box">
+
+            <ul id="myTab" class="nav nav-tabs">
+                {% for lecturer in  lecturers %}
+                    <li>
+                        <a href="{{ "#"+lecturer.username }}" data-toggle="tab">
+                            {{ lecturer.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                {% for lecturer in  lecturers %}
+                    <div class="tab-pane fade" id="{{ lecturer.username }}">
+                        <form id="form1" name="form" method="post" action="{{ url_for('web.vote_page') }}">
+                            <input type="hidden" name="lecturer" value="{{ lecturer.username }}">
+                            <label for="content">内容:</label>
+                            <input type="number" name="content" id="content" min="0" max="10">
+                            <label for="gesture">肢体:</label>
+                            <input type="number" name="gesture" id="gesture" min="0" max="40">
+                            <label for="voice">声音:</label>
+                            <input type="number" name="voice" id="voice" min="0" max="50">
+                            <input type="submit" name="submit" id="submit" value="提交">
+                            <input type="reset" name="reset" id="reset" value="重置">
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}

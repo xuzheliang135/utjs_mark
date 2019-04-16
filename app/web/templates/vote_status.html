@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <title>投票情况</title>
+{% endblock %}
+<!-- Main -->
+{% block body %}
+    <section class="box">
+        <h3>统计</h3>
+
+        <h4>投票</h4>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>评委</th>
+                    {% for lecturer in lectures %}
+                        <th>{{ lecturer.name }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for voter in voters %}
+                    <tr>
+                        <td>{{ voter.name }}</td>
+                        {% for vote in voter.votes %}
+                            <td>{{ "√" if vote }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

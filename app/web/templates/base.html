@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+
+<html>
+{% block head %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+        <link rel="stylesheet" href="{{ url_for('web.static',filename="assets/css/main.css") }}"/>
+        <link rel="stylesheet" href="{{ url_for('web.static', filename='assets/css/base.css') }}">
+    </head>
+{% endblock %}
+<body class="is-preload">
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="#">UTJS</a> 演讲打分</h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="{{ url_for("web.index") }}">首页</a></li>
+                <li>
+                    <a href="#" class="icon fa-angle-down">功能</a>
+                    <ul>
+                        <li><a href="{{ url_for("web.vote_page") }}">打分</a></li>
+                        <li><a href="{{ url_for("web.score") }}">分数统计</a></li>
+                        <li><a href="{{ url_for("web.vote_status") }}">投票情况</a></li>
+                    </ul>
+                </li>
+                {% if not current_user.is_authenticated %}
+                    <li><a href="{{ url_for('web.login') }}" class="button">登陆</a></li>
+                {% else %}
+                    <li>
+                        <a href="#">{{ current_user.name }}</a>
+                        <ul>
+                            <li><a href="{{ url_for('web.log_out') }}">登出</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class='container'>
+        <div class="row">
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    {% if message %}
+                        <div class="alert alert-warning" role="alert">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            {% if form and form.errors %}
+                {% for key, error in form.errors.items() %}
+                    <div class="alert alert-warning" role="alert">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% block content %} {% endblock %}
+    </div>
+    {% block body %}
+        <!-- Main -->
+    {% endblock %}
+    {% block footer %}
+        <!-- Footer -->
+{#        <footer id="footer">#}
+{#            <ul class="icons">#}
+{#                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>#}
+{#                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>#}
+{#                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>#}
+{#                <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>#}
+{#                <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>#}
+{#                <li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>#}
+{#            </ul>#}
+{#        </footer>#}
+
+        </div>
+    {% endblock %}
+{% block scripts %}
+    <!-- Scripts -->
+    <script src={{ url_for('web.static',filename="assets/js/jquery.min.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/jquery.dropotron.min.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/jquery.scrollex.min.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/browser.min.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/breakpoints.min.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/util.js") }}></script>
+    <script src={{ url_for('web.static',filename="assets/js/main.js") }}></script>
+{% endblock %}
+</body>
+</html>

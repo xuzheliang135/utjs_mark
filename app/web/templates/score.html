@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <title>分数统计</title>
+{% endblock %}
+<!-- Main -->
+{% block body %}
+    <section class="box">
+        <h3>统计</h3>
+
+        <h4>分数</h4>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>姓名</th>
+                    <th>内容</th>
+                    <th>肢体</th>
+                    <th>声音</th>
+                    <th>总分</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in res %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.content|float }}</td>
+                        <td>{{ i.gesture|float }}</td>
+                        <td>{{ i.voice|float }}</td>
+                        <td>{{ (i.content+i.gesture+i.voice)|float }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
