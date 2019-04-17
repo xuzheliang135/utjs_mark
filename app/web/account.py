@@ -1,10 +1,10 @@
-from flask_login import login_user, login_required, current_user, logout_user
+from flask import render_template, request, flash, redirect, url_for, current_app
+from flask_login import login_user, login_required, logout_user
 
 from model.base import db
+from model.user import User
 from web.form.accountForm import LoginForm, SignUpForm
 from . import web
-from model.user import User
-from flask import render_template, request, flash, redirect, url_for
 
 
 @web.route('/log_in/', methods=['GET', 'POST'])
@@ -26,6 +26,7 @@ def login():
 @web.route('/login_test/')
 @login_required
 def must_be_logined():
+    current_app.config.from_pyfile('settings.py')
     return 'ok'
 
 

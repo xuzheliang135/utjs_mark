@@ -1,4 +1,4 @@
-from . import create_app, register_blueprint
+from app import create_app, register_blueprint
 from model.base import db
 app = create_app()
 register_blueprint(app)
