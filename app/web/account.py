@@ -39,8 +39,8 @@ def sign_up():
             user.set_attrs(form.data)
             db.session.add(user)
             login_user(user)
-        return redirect(url_for('web.login'))
-    return redirect(url_for('web.score'))
+        return redirect(url_for('web.index'))
+    return render_template('sign_up.html', form=form)
 
 
 @web.route('/log_out/')
