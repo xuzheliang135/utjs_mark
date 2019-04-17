@@ -25,13 +25,18 @@ class VoteEvent(Base):
 
 
 @listens_for(VoteEvent, "before_update")
-def receive_modified(mapper, connection, instance):
+def receive_before_update(mapper, connection, instance):
     if instance.is_active:
-        connection.execute('update vote_event set is_active=false where is_active=true')
+        from web.util.util import refresh_control_info
+        connection.execute(
+            f'update vote_event set is_active=false where is_active=true and event_id!={instance.event_id}')
+        refresh_control_info()
 
 
 @listens_for(VoteEvent, "before_insert")
 def receive_before_insert(mapper, connection, instance):
     if instance.is_active:
+        from web.util.util import refresh_control_info
         connection.execute('update vote_event set is_active=false where is_active=true')
+        refresh_control_info()
         # todo:无法在回调函数中使用SQLAlchemy更改数据

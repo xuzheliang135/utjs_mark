@@ -5,7 +5,7 @@ from flask_login import current_user
 
 class BaseModelView(ModelView):
     def is_accessible(self):
-        return current_user.username == 'Admin'
+        return current_user.is_authenticated and current_user.username == 'Admin'
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('web.login', next=request.url))
