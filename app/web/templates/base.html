@@ -32,6 +32,7 @@
                     <li>
                         <a href="#">{{ current_user.name }}</a>
                         <ul>
+                            <li><a href="{{ url_for('web.reset_password') }}">修改密码</a></li>
                             <li><a href="{{ url_for('web.log_out') }}">登出</a></li>
                         </ul>
                     </li>

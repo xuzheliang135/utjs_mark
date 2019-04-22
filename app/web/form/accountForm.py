@@ -10,6 +10,13 @@ class LoginForm(Form):
         DataRequired(message='密码不可以为空，请输入你的密码')])
 
 
+class ResetPasswordForm(Form):
+    old_password = PasswordField('原密码', validators=[
+        DataRequired(message='原密码不可以为空，请输入你的密码')])
+    password = PasswordField('新密码', validators=[
+        DataRequired(message='新密码不可以为空，请输入你的密码')])
+
+
 class SignUpForm(LoginForm):
     name = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
     team_id = IntegerField('组别', validators=[DataRequired(), NumberRange(1, 3)])

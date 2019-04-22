@@ -4,7 +4,7 @@ from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.wsgi import WSGIContainer
 
-from main import app  # 这里要和run.py对应
+from app.main import app  # 这里要和run.py对应
 
 http_server = HTTPServer(WSGIContainer(app))
 http_server.listen(5000)  # flask默认的端口

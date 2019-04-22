@@ -1,9 +1,9 @@
 from flask import render_template, request, flash, redirect, url_for, current_app
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 from model.base import db
 from model.user import User
-from web.form.accountForm import LoginForm, SignUpForm
+from web.form.accountForm import LoginForm, SignUpForm, ResetPasswordForm
 from . import web
 
 
@@ -41,6 +41,22 @@ def sign_up():
             login_user(user)
         return redirect(url_for('web.index'))
     return render_template('sign_up.html', form=form)
+
+
+@web.route('/reset_password/', methods=['GET', 'POST'])
+@login_required
+def reset_password():
+    form = ResetPasswordForm(request.form)
+    if request.method == 'POST' and form.validate():
+        with db.auto_commit():
+            user = User.query.filter_by(username=current_user.username).first()
+            if user.check_password(form.old_password.data):
+                user.password = form.password.data
+                db.session.add(user)
+                logout_user()
+                return redirect(url_for('web.login'))
+        flash("原密码不对！请检查后再次输入")
+    return render_template('reset_password.html', form=form)
 
 
 @web.route('/log_out/')
