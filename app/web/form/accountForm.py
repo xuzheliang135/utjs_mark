@@ -18,8 +18,8 @@ class ResetPasswordForm(Form):
 
 
 class SignUpForm(LoginForm):
-    name = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
-    team_id = IntegerField('组别', validators=[DataRequired(), NumberRange(1, 3)])
+    name = StringField('姓名', validators=[DataRequired(message='姓名不可以为空'), Length(1, 10)])
+    team_id = IntegerField('组别', validators=[DataRequired(message='组别不可以为空'), NumberRange(1, 3)])
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
