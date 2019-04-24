@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>打分</title>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('web.static',filename="assets/css/bootstrap.min.css") }}">
+{% endblock %}
+
+<!-- Main -->
+{% block body %}
+    <section id="main" class="container">
+        <header>
+            <h2>给点评组打分</h2>
+            <div></div>
+        </header>
+        <div class="box">
+
+            <ul id="myTab" class="nav nav-tabs">
+                {% for target in  targets %}
+                    <li>
+                        <a href="{{ "#"+target.username }}" data-toggle="tab">
+                            {{ target.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                {% for target in  targets %}
+                    <div class="tab-pane fade" id="{{ target.username }}">
+                        <form id="form1" name="form" method="post" action="{{ url_for('web.vote_page') }}">
+                            <input type="hidden" name="target" value="{{ target.username }}">
+                            <label for="score">分数:</label>
+                            <input type="number" name="score" id="score" min="0" max="100">
+                            <input type="submit" name="submit" id="submit" value="提交">
+                            <input type="reset" name="reset" id="reset" value="重置">
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}

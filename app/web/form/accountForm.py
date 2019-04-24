@@ -31,3 +31,8 @@ class VoteForm(Form):
     content = IntegerField('内容分数', validators=[NumberRange(0, 10, message="分数超限")])
     gesture = IntegerField('肢体分数', validators=[NumberRange(0, 40, message="分数超限")])
     voice = IntegerField('声音分数', validators=[NumberRange(0, 50, message="分数超限")])
+
+
+class VoteTmpForm(Form):
+    target = StringField("点评者")
+    score = IntegerField('分数', validators=[NumberRange(0, 100, message="分数超限")])

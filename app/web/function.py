@@ -4,8 +4,8 @@ from sqlalchemy import func
 
 from model.base import db
 from model.user import User
-from model.vote import Vote
-from web.form.accountForm import VoteForm
+from model.vote import Vote, VoteTmp
+from web.form.accountForm import VoteForm, VoteTmpForm
 from . import web
 
 
@@ -34,6 +34,30 @@ def vote_page():
             db.session.add(vote)
     return render_template('vote.html',
                            lecturers=get_team_members(current_app.config['LECTURE_TEAM']),
+                           form=form)
+
+
+@web.route('/vote_for_tmp/', methods=['GET', 'POST'])
+@login_required
+def tmp_vote_page():
+    form = VoteTmpForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User.query.filter_by(username=current_user.get_id()).first()
+        if user.team_id != current_app.config['LECTURE_TEAM']:
+            flash('只有演讲组才能投票哦', category='privilege_error')
+            abort(403)
+        vote = VoteTmp.query.filter_by(voter=current_user.get_id(),
+                                       vote_target=form.vote_target.data,
+                                       event_id=current_app.config['EVENT_ID']).first()
+        if not vote:
+            vote = VoteTmp()
+        with db.auto_commit():
+            vote.set_attrs(form.data)
+            vote.voter = current_user.get_id()
+            vote.event_id = current_app.config['EVENT_ID']
+            db.session.add(vote)
+    return render_template('vote_for_tmp.html',
+                           targets=get_team_members(current_app.config['VOTE_TEAM']),
                            form=form)
 
 

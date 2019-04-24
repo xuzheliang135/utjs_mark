@@ -16,6 +16,15 @@ class Vote(Base):
     event_id = Column('event_id', Integer(), ForeignKey("vote_event.event_id"), primary_key=True)
 
 
+class VoteTmp(Base):
+    __tablename__ = 'votetmp'
+
+    voter = Column('voter', String(20), ForeignKey("user.username"), primary_key=True)
+    vote_target = Column('vote_target', String(20), ForeignKey("user.username"), primary_key=True)
+    score = Column('score', Integer())
+    event_id = Column('event_id', Integer(), ForeignKey("vote_event.event_id"), primary_key=True)
+
+
 class VoteEvent(Base):
     __tablename__ = 'vote_event'
     event_id = Column('event_id', Integer(), primary_key=True, autoincrement=True)
