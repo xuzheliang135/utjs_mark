@@ -42,5 +42,5 @@ def create_app():
 
 def register_blueprint(app):
     from web import web
-    # app.register_blueprint(web, url_prefix='/web')
-    app.register_blueprint(web)
+    app.register_blueprint(web, url_prefix='/web')
+    # app.register_blueprint(web)
