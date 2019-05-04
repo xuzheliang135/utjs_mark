@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Boolean
-from sqlalchemy import String, Integer, ForeignKey
+from sqlalchemy import String, Integer
 from sqlalchemy.event import listens_for
 
 from model.base import Base
@@ -8,12 +8,12 @@ from model.base import Base
 class Vote(Base):
     __tablename__ = 'vote'
 
-    voter = Column('voter', String(20), ForeignKey("user.username"), primary_key=True)
-    lecturer = Column('lecturer', String(20), ForeignKey("user.username"), primary_key=True)
+    voter = Column('voter', String(20), primary_key=True)
+    lecturer = Column('lecturer', String(20), primary_key=True)
     content = Column('content', Integer())
     gesture = Column('gesture', Integer())
     voice = Column('voice', Integer())
-    event_id = Column('event_id', Integer(), ForeignKey("vote_event.event_id"), primary_key=True)
+    event_id = Column('event_id', Integer(), primary_key=True)
 
 
 class VoteEvent(Base):
