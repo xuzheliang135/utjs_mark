@@ -33,7 +33,7 @@ def vote_page():
             vote.event_id = current_app.config['EVENT_ID']
             db.session.add(vote)
     return render_template('vote.html',
-                           lecturers=User.query.all(),
+                           lecturers=User.query.filter(User.username != "Admin").all(),
                            form=form)
 
 
