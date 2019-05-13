@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="{{ url_for("web.vote_page") }}">打分</a></li>
                         <li><a href="{{ url_for("web.score") }}">分数统计</a></li>
-                        <li><a href="{{ url_for("web.vote_status") }}">投票情况</a></li>
+                        {#                        <li><a href="{{ url_for("web.vote_status") }}">投票情况</a></li>#}
                     </ul>
                 </li>
                 {% if not current_user.is_authenticated %}
