@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate, Manager, MigrateCommand
 
-from model.base import db
+from app.model.base import db
 
 app = Flask(__name__)
 app.config.from_pyfile('secure.py')

@@ -3,14 +3,14 @@ from flask_admin import Admin
 from flask_babelex import Babel
 from flask_login import LoginManager
 
-from admin_view_model import UserModelView, VoteEventModelView
-from model.base import db
+from app.admin_view_model import UserModelView, VoteEventModelView
+from app.model.base import db
 
 login_manager = LoginManager()
 
 
 def create_app():
-    from web.util.util import refresh_control_info
+    from app.web.util.util import refresh_control_info
 
     app = Flask(__name__)
     app.config.from_pyfile('secure.py')
@@ -24,8 +24,8 @@ def create_app():
     login_manager.login_message = '请先登录或注册'
 
     # 注册admin模块
-    from model.user import User
-    from model.vote import VoteEvent
+    from app.model.user import User
+    from app.model.vote import VoteEvent
     admin = Admin(app=app, name='后台管理系统', template_mode='bootstrap3')
     admin.add_view(UserModelView(User, db.session, name='用户管理'))
     admin.add_view(VoteEventModelView(VoteEvent, db.session, name='投票管理'))
@@ -41,6 +41,6 @@ def create_app():
 
 
 def register_blueprint(app):
-    from web import web
+    from app.web import web
     app.register_blueprint(web, url_prefix='/web')
     # app.register_blueprint(web)

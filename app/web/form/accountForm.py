@@ -1,7 +1,7 @@
 from wtforms import Form, PasswordField, StringField, IntegerField
 from wtforms.validators import DataRequired, Length, ValidationError, NumberRange, Regexp
 
-from model.user import User
+from app.model.user import User
 
 
 class LoginForm(Form):

@@ -1,9 +1,9 @@
 from flask import render_template, request, flash, redirect, url_for, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 
-from model.base import db
-from model.user import User
-from web.form.accountForm import LoginForm, SignUpForm, ResetPasswordForm
+from app.model.base import db
+from app.model.user import User
+from app.web.form.accountForm import LoginForm, SignUpForm, ResetPasswordForm
 from . import web
 
 

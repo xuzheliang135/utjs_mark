@@ -1,6 +1,6 @@
 from flask import current_app
 
-from model.vote import VoteEvent
+from app.model.vote import VoteEvent
 
 
 def refresh_control_info():

@@ -1,9 +1,10 @@
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column
 from sqlalchemy import String, Integer
-from model.base import Base
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from app import login_manager
+from app.model.base import Base
 
 
 class User(UserMixin, Base):

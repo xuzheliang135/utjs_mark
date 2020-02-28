@@ -1,7 +1,7 @@
 from flask import redirect, url_for
 
 from app import create_app, register_blueprint
-from model.base import db
+from app.model.base import db
 
 app = create_app()
 register_blueprint(app)
@@ -14,4 +14,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5002, use_reloader=True)

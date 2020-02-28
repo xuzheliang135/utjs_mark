@@ -2,7 +2,7 @@ from sqlalchemy import Column, Boolean
 from sqlalchemy import String, Integer
 from sqlalchemy.event import listens_for
 
-from model.base import Base
+from app.model.base import Base
 
 
 class Vote(Base):

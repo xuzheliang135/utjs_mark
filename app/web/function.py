@@ -2,10 +2,10 @@ from flask import render_template, request, current_app
 from flask_login import login_required, current_user
 from sqlalchemy import func
 
-from model.base import db
-from model.user import User
-from model.vote import Vote
-from web.form.accountForm import VoteForm
+from app.model.base import db
+from app.model.user import User
+from app.model.vote import Vote
+from app.web.form.accountForm import VoteForm
 from . import web
 
 
